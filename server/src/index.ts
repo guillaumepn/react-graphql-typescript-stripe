@@ -1,11 +1,15 @@
+import 'reflect-metadata';
+import 'dotenv/config';
+import * as express from 'express';
+import * as session from 'express-session';
 import {createConnection} from "typeorm";
 import { ApolloServer } from 'apollo-server-express';
 
 import {typeDefs} from "./typeDefs";
 import {resolvers} from "./resolvers";
+import {stripe} from "./stripe";
 
-import * as express from 'express';
-import * as session from 'express-session';
+stripe;
 
 const startServer = async () => {
     const server = new ApolloServer({

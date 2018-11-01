@@ -14,9 +14,9 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-      <Routes />
-  </ApolloProvider>,
-  document.getElementById('root') as HTMLElement
+    <ApolloProvider client={client}>
+        <Routes />
+    </ApolloProvider>,
+    document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();
