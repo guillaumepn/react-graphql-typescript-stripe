@@ -9,11 +9,12 @@ const createSubscriptionMutation = gql`
         createSubscription(source: $source) {
             id
             email
+            type
         }
     }
 `;
 
-export default class SubscribeUser extends React.Component {
+export default class SubscribeUser extends React.PureComponent {
     render() {
         return (
             <Mutation<CreateSubscriptionMutation, CreateSubscriptionMutationVariables> mutation={createSubscriptionMutation}>
