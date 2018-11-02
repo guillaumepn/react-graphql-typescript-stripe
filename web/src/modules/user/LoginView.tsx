@@ -59,7 +59,7 @@ class LoginView extends React.PureComponent<RouteComponentProps<{}>> {
                             onSubmit={async () => {
                                 // (optional) reset cache when logging in
                                 await client.resetStore();
-                                
+
                                 this.props.history.push('/account');
                             }}
                         >

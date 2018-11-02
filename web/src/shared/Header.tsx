@@ -1,8 +1,20 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
+import {Query} from "react-apollo";
+
+import styled from "../theme/index";
 import {MeQuery} from "../schemaTypes";
 import {meQuery} from "../graphql/queries/me";
-import {Query} from "react-apollo";
+
+import './Header.css'
+
+const CustomLink = styled(Link)`
+color: blue;
+
+&:hover {
+color: green;
+}
+`;
 
 class Header extends React.PureComponent {
     render() {
@@ -42,7 +54,7 @@ class Header extends React.PureComponent {
                         return (
                             <div>
                                 <div>
-                                    <Link to="/account">Account</Link>
+                                    <CustomLink to="/account">Account</CustomLink>
                                 </div>
                                 <div>
                                     Hi, {data.me.email}
