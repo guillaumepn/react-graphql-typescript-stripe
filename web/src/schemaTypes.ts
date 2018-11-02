@@ -25,6 +25,7 @@ export interface MeQuery {
 export interface CreateSubscriptionMutation_createSubscription {
   id: string;
   email: string;
+  type: string;
 }
 
 export interface CreateSubscriptionMutation {
@@ -45,6 +46,7 @@ export interface CreateSubscriptionMutationVariables {
 export interface LoginMutation_login {
   id: string;
   email: string;
+  type: string;
 }
 
 export interface LoginMutation {

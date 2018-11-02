@@ -22,7 +22,7 @@ interface RegisterFormValues {
 }
 
 function emailValidate(value: any) {
-    console.log(value)
+    // console.log(value)
 }
 
 class LoginView extends React.PureComponent<RouteComponentProps<{}>> {
@@ -35,6 +35,8 @@ class LoginView extends React.PureComponent<RouteComponentProps<{}>> {
                     if (!data || !data.login) {
                         return;
                     }
+
+                    console.log('update', data.login);
 
                     cache.writeQuery({
                         query: meQuery,
@@ -56,9 +58,12 @@ class LoginView extends React.PureComponent<RouteComponentProps<{}>> {
                                 }
                                 return errors;
                             }}
-                            onSubmit={async () => {
+                            onSubmit={async (values: RegisterFormValues) => {
                                 // (optional) reset cache when logging in
                                 await client.resetStore();
+                                await mutate({
+                                    variables: values
+                                });
 
                                 this.props.history.push('/account');
                             }}
