@@ -1,24 +1,18 @@
 import * as React from 'react';
 import {Query} from "react-apollo";
-import {gql} from 'apollo-boost';
-import {MeQuery} from "../../schemaTypes";
 import {Redirect} from "react-router-dom";
+
+import {MeQuery} from "../../schemaTypes";
+
+import {meQuery} from "../../graphql/queries/me";
+
 import SubscribeUser from "./SubscribeUser";
 
-const meQuery = gql`
-    query MeQuery {
-        me {
-            id
-            email
-            type
-        }
-    }
-`;
 
 class Account extends React.PureComponent {
     render() {
         return (
-            <Query<MeQuery> fetchPolicy="network-only" query={meQuery}>
+            <Query<MeQuery> query={meQuery}>
                 {({data, loading}) => {
                     if (loading) {
                         return null;

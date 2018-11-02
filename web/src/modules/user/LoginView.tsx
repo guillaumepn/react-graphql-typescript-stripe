@@ -4,12 +4,14 @@ import {Mutation} from "react-apollo";
 import {gql} from 'apollo-boost';
 import {LoginMutation, LoginMutationVariables} from "../../schemaTypes";
 import {RouteComponentProps} from "react-router-dom";
+import {meQuery} from "../../graphql/queries/me";
 
 const loginMutation = gql`
     mutation LoginMutation($email: String!, $password: String!) {
         login(email: $email, password: $password) {
             id
             email
+            type
         }
     }
 `;
@@ -27,8 +29,20 @@ class LoginView extends React.PureComponent<RouteComponentProps<{}>> {
 
     render() {
         return (
-            <Mutation<LoginMutation, LoginMutationVariables> mutation={loginMutation}>
-                {mutate => (
+            <Mutation<LoginMutation, LoginMutationVariables>
+                mutation={loginMutation}
+                update={(cache, { data }) => {
+                    if (!data || !data.login) {
+                        return;
+                    }
+
+                    cache.writeQuery({
+                        query: meQuery,
+                        data: { me: data.login }
+                    });
+                }}
+            >
+                {(mutate, {client}) => (
                     <React.Fragment>
                         <h1>Connexion</h1>
                         <Formik
@@ -42,11 +56,10 @@ class LoginView extends React.PureComponent<RouteComponentProps<{}>> {
                                 }
                                 return errors;
                             }}
-                            onSubmit={async (values: RegisterFormValues, {setSubmitting}: any) => {
-                                const response = await mutate({
-                                    variables: values
-                                });
-                                console.log(response);
+                            onSubmit={async () => {
+                                // (optional) reset cache when logging in
+                                await client.resetStore();
+                                
                                 this.props.history.push('/account');
                             }}
                         >
