@@ -37,7 +37,7 @@ export const resolvers: IResolvers = {
 
             return user;
         },
-        createSubscription: async (_, {source}, {req}) => {
+        createSubscription: async (_, {source, ccLast4}, {req}) => {
             if (!req.session || !req.session.userId) {
                 throw new Error('Not authenticated');
             }
@@ -56,6 +56,25 @@ export const resolvers: IResolvers = {
 
             user.stripeId = customer.id;
             user.type = 'standard';
+            user.ccLast4 = ccLast4;
+            await user.save();
+
+            return user;
+        },
+        changeCreditCard: async (_, {source, ccLast4}, {req}) => {
+            if (!req.session || !req.session.userId) {
+                throw new Error('Not authenticated');
+            }
+
+            const user = await User.findOne(req.session.userId);
+
+            if (!user || !user.stripeId || user.type === 'free-trial') {
+                throw new Error();
+            }
+
+            await stripe.customers.update(user.stripeId, {source});
+
+            user.ccLast4 = ccLast4;
             await user.save();
 
             return user;

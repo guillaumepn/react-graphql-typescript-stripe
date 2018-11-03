@@ -2,12 +2,12 @@ import * as React from 'react'
 import StripeCheckout from 'react-stripe-checkout';
 import {Mutation} from "react-apollo";
 import {gql} from 'apollo-boost';
-import {CreateSubscriptionMutation, CreateSubscriptionMutationVariables} from "../../schemaTypes";
+import {ChangeCreditCardMutation, ChangeCreditCardMutationVariables} from "../../schemaTypes";
 import {UserFragment} from "../../graphql/fragments/UserFragment";
 
-const createSubscriptionMutation = gql`
-    mutation CreateSubscriptionMutation($source: String!, $ccLast4: String!) {
-        createSubscription(source: $source, ccLast4: $ccLast4) {
+const changeCreditCardMutation = gql`
+    mutation ChangeCreditCardMutation($source: String!, $ccLast4: String!) {
+        changeCreditCard(source: $source, ccLast4: $ccLast4) {
             ...UserInfo
         }
     }
@@ -15,10 +15,10 @@ const createSubscriptionMutation = gql`
     ${UserFragment}
 `;
 
-export default class SubscribeUser extends React.PureComponent {
+export default class ChangeCreditCard extends React.PureComponent {
     render() {
         return (
-            <Mutation<CreateSubscriptionMutation, CreateSubscriptionMutationVariables> mutation={createSubscriptionMutation}>
+            <Mutation<ChangeCreditCardMutation, ChangeCreditCardMutationVariables> mutation={changeCreditCardMutation}>
                 {(mutate) => (
                 <StripeCheckout
                     token={async (token) => {
@@ -28,6 +28,8 @@ export default class SubscribeUser extends React.PureComponent {
                         console.log(response)
                     }}
                     stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE!}
+                    label="Change Credit Card"
+                    panelLabel="Change Credit Card"
                 />
             )}</Mutation>
         )

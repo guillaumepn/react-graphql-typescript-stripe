@@ -7,6 +7,7 @@ import {MeQuery} from "../../schemaTypes";
 import {meQuery} from "../../graphql/queries/me";
 
 import SubscribeUser from "./SubscribeUser";
+import ChangeCreditCard from "./ChangeCreditCard";
 
 
 class Account extends React.PureComponent {
@@ -30,7 +31,12 @@ class Account extends React.PureComponent {
                         return <SubscribeUser/>;
                     }
 
-                    return <Redirect to="/paid-user"/>
+                    return (
+                        <div>
+                            Current card's last 4 digits: {data.me.ccLast4}<br />
+                            <ChangeCreditCard/>
+                        </div>
+                    );
                 }}
             </Query>
         );
