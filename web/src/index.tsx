@@ -15,7 +15,7 @@ const client = new ApolloClient({
 });
 
 addLocaleData(fr);
-const locale='fr';
+const locale='en';
 const messages = require('./translations/locales');
 
 ReactDOM.render(

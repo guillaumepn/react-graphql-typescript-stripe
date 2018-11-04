@@ -43,7 +43,8 @@
     "refresh:types": "npm run gen:types && npm run build",
     "trans:compile": "tsc -p .  --target ES6 --module es6 --jsx preserve --outDir extracted",
     "trans:extract": "babel  \"extracted/**/*.jsx\"",
-    "trans:manage": "node scripts/translationRunner.js"
+    "trans:manage": "node scripts/translationRunner.js",
+    "trans:update": "npm run trans:compile && npm run trans:extract && npm run trans:manage"
   },
   "resolutions": {
     "graphql": "14.0.2"

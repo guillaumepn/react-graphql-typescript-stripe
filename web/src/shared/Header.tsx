@@ -7,6 +7,7 @@ import {MeQuery} from "../schemaTypes";
 import {meQuery} from "../graphql/queries/me";
 
 import './Header.css'
+import {FormattedMessage} from 'react-intl';
 
 const CustomLink = styled(Link)`
 color: blue;
@@ -54,7 +55,12 @@ class Header extends React.PureComponent {
                         return (
                             <div>
                                 <div>
-                                    <CustomLink to="/account">Account</CustomLink>
+                                    <CustomLink to="/account">
+                                        <FormattedMessage
+                                            id="header.account"
+                                            defaultMessage="Account"
+                                        />
+                                    </CustomLink>
                                 </div>
                                 <div>
                                     Hi, {data.me.email}
