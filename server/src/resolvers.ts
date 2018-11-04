@@ -37,6 +37,11 @@ export const resolvers: IResolvers = {
 
             return user;
         },
+        logout: async(_, __, {req}) => {
+            req.session.destroy();
+            req.res.clearCookie('connect.sid');
+            return true;
+        },
         createSubscription: async (_, {source, ccLast4}, {req}) => {
             if (!req.session || !req.session.userId) {
                 throw new Error('Not authenticated');

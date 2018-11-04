@@ -4,6 +4,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import {IntlProvider, addLocaleData} from 'react-intl';
 import * as fr from 'react-intl/locale-data/fr';
+import * as en from 'react-intl/locale-data/en';
 
 import registerServiceWorker from './registerServiceWorker';
 import Routes from "./Routes";
@@ -14,6 +15,7 @@ const client = new ApolloClient({
     credentials: 'include'
 });
 
+addLocaleData(en);
 addLocaleData(fr);
 const locale='en';
 const messages = require('./translations/locales');

@@ -13,6 +13,7 @@ export const typeDefs = gql`
     type Mutation {
         register(email: String!, password: String!): Boolean!
         login(email: String!, password: String!): User
+        logout: Boolean!
         createSubscription(source: String!, ccLast4: String!): User
         changeCreditCard(source: String!, ccLast4: String!): User
     }

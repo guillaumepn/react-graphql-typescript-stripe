@@ -1,13 +1,14 @@
 import * as React from 'react';
 import {Link} from 'react-router-dom';
 import {Query} from "react-apollo";
+import {FormattedMessage} from 'react-intl';
 
 import styled from "../theme/index";
 import {MeQuery} from "../schemaTypes";
 import {meQuery} from "../graphql/queries/me";
 
 import './Header.css'
-import {FormattedMessage} from 'react-intl';
+import Logout from "../modules/user/Logout";
 
 const CustomLink = styled(Link)`
 color: blue;
@@ -33,7 +34,7 @@ class Header extends React.PureComponent {
                 </Link>
 
                 <Query<MeQuery> query={meQuery}>
-                    {({data, loading}) => {
+                    {({data, loading, client}) => {
                         if (loading || !data) {
                             return null;
                         }
@@ -61,6 +62,7 @@ class Header extends React.PureComponent {
                                             defaultMessage="Account"
                                         />
                                     </CustomLink>
+                                    <Logout />
                                 </div>
                                 <div>
                                     Hi, {data.me.email}
