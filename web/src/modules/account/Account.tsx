@@ -8,6 +8,7 @@ import {meQuery} from "../../graphql/queries/me";
 
 import SubscribeUser from "./SubscribeUser";
 import ChangeCreditCard from "./ChangeCreditCard";
+import CancelSubscription from "./CancelSubscription";
 
 
 class Account extends React.PureComponent {
@@ -35,6 +36,7 @@ class Account extends React.PureComponent {
                         <div>
                             Current card's last 4 digits: {data.me.ccLast4}<br />
                             <ChangeCreditCard/>
+                            <CancelSubscription/>
                         </div>
                     );
                 }}

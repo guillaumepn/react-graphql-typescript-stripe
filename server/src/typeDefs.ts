@@ -16,5 +16,6 @@ export const typeDefs = gql`
         logout: Boolean!
         createSubscription(source: String!, ccLast4: String!): User
         changeCreditCard(source: String!, ccLast4: String!): User
+        cancelSubscription: User
     }
 `;

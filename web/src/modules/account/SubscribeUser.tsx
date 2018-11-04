@@ -28,6 +28,10 @@ export default class SubscribeUser extends React.PureComponent {
                         console.log(response)
                     }}
                     stripeKey={process.env.REACT_APP_STRIPE_PUBLISHABLE!}
+                    amount={500}
+                    currency="EUR"
+                    label="Pay With Card"
+                    panelLabel="Pay"
                 />
             )}</Mutation>
         )
