@@ -9,10 +9,28 @@
     "react": "^16.6.0",
     "react-apollo": "^2.2.4",
     "react-dom": "^16.6.0",
+    "react-intl": "^2.7.2",
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "3.1.0",
     "react-stripe-checkout": "^2.6.3",
     "styled-components": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.0.3",
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.1",
+    "@types/react": "^16.4.18",
+    "@types/react-dom": "^16.0.9",
+    "@types/react-intl": "^2.3.11",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/styled-components": "^4.0.3",
+    "apollo": "^1.9.2",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-react-intl": "^3.0.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react-intl-translations-manager": "^5.0.3",
+    "typescript": "^3.1.5"
   },
   "scripts": {
     "start": "react-scripts-ts start",
@@ -22,18 +40,10 @@
     "schema:download": "apollo schema:download --endpoint=http://localhost:4000/graphql",
     "codegen:generate": "apollo codegen:generate --queries='./src/**/*.{ts,tsx}' --schema=./schema.json --outputFlat --target=typescript ./src/schemaTypes.ts",
     "gen:types": "npm run schema:download && npm run codegen:generate",
-    "refresh:types": "npm run gen:types && npm run build"
-  },
-  "devDependencies": {
-    "@types/graphql": "^14.0.3",
-    "@types/jest": "^23.3.9",
-    "@types/node": "^10.12.1",
-    "@types/react": "^16.4.18",
-    "@types/react-dom": "^16.0.9",
-    "@types/react-router-dom": "^4.3.1",
-    "@types/styled-components": "^4.0.3",
-    "apollo": "^1.9.2",
-    "typescript": "^3.1.5"
+    "refresh:types": "npm run gen:types && npm run build",
+    "trans:compile": "tsc -p .  --target ES6 --module es6 --jsx preserve --outDir extracted",
+    "trans:extract": "babel  \"extracted/**/*.jsx\"",
+    "trans:manage": "node scripts/translationRunner.js"
   },
   "resolutions": {
     "graphql": "14.0.2"

@@ -2,10 +2,11 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+import {IntlProvider, addLocaleData} from 'react-intl';
+import * as fr from 'react-intl/locale-data/fr';
 
 import registerServiceWorker from './registerServiceWorker';
 import Routes from "./Routes";
-
 
 // Pass your GraphQL endpoint to uri
 const client = new ApolloClient({
@@ -13,10 +14,16 @@ const client = new ApolloClient({
     credentials: 'include'
 });
 
+addLocaleData(fr);
+const locale='fr';
+const messages = require('./translations/locales');
+
 ReactDOM.render(
-    <ApolloProvider client={client}>
-        <Routes />
-    </ApolloProvider>,
+    <IntlProvider locale={locale} key={locale} messages={messages[locale]}>
+        <ApolloProvider client={client}>
+            <Routes />
+        </ApolloProvider>
+    </IntlProvider>,
     document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();
