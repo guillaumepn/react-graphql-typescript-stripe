@@ -8,6 +8,18 @@ import Account from "./modules/account/Account";
 import PaidUser from "./modules/account/PaidUser";
 import Header from "./shared/Header";
 
+import Auth from './modules/auth/Auth.js';
+import Callback from "./modules/auth/Callback";
+
+const auth = new Auth();
+
+const handleAuthentication = (nextState: any) => {
+    console.log(nextState);
+    if (/access_token|id_token|error/.test(nextState.location.hash)) {
+        auth.handleAuthentication();
+    }
+}
+
 
 class Routes extends React.PureComponent {
     render() {
@@ -16,9 +28,13 @@ class Routes extends React.PureComponent {
             <BrowserRouter>
                 <Switch>
                     <Route path="/login" component={LoginView} />
+                    <Route path="/callback" render={(props) => {
+                        handleAuthentication(props);
+                        return <Callback {...props} />
+                    }}/>
                     <Route path="/" render={() => (
                         <React.Fragment>
-                            <Header />
+                            <Header auth={auth} />
                             <Route path="/register" component={RegisterView} />
                             <Route path="/account" component={Account} />
                             <Route path="/paid-user" component={PaidUser} />
